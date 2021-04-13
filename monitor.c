@@ -36,17 +36,8 @@ int WaitForUsbDeviceRenumeration(const char *radioUrl)
 			if (dev) {
 				struct udev_list_entry *entry;
 				const char *action = udev_device_get_action(dev);
-				const char *toCmp = "add\0";
 
-				printf("%s\n", action);
-				printf("%s\n", toCmp);
-				printf("%ld\n", strlen(toCmp));
-
-				if (strncmp(action, toCmp, strlen(toCmp) == 0)) {
-					printf("I: ACTION=%s\n", action);
-					printf("I: DEVNODE=%s\n", udev_device_get_devnode(dev));
-					printf("---\n");
-
+				if (strncmp(action, "add", strlen("add")) == 0) {
 					udev_list_entry_foreach(
 						entry, udev_device_get_devlinks_list_entry(dev))
 					{
